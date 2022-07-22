@@ -1103,6 +1103,13 @@ class AudioService {
     );
   }
 
+  /// Update the AudioService configuration. Must be called after init.
+  /// Primarily intended to update how notification behaves during playback.
+  static Future<void> updateConfig(AudioServiceConfig config) async {
+    _config = config;
+    await _platform.configure(ConfigureRequest(config: config._toMessage()));
+  }
+
   /// Stops the service.
   static Future<void> _stop() async {
     await _platform.stopService(const StopServiceRequest());
